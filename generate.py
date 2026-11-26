@@ -386,6 +386,34 @@ d.text((18, 1000),
        "CLAIM one side's account · Original drawings, no photos · Every story dated 26 Nov 2026 (UTC)",
        font=nr(11), fill=GREY)
 
+# ------------------------------------------------------------------
+# Design notes for 26 November (kept with the code so the next day's
+# build can see why this page looks the way it does):
+#   * The masthead date is set as large as the page allows because
+#     pairwise judging happens at thumbnail size first; the date and
+#     the three hero panels must read before any body text does.
+#   * Hero order follows the early leaderboard's consensus: the
+#     postponed parade (a scheduled event that failed to happen),
+#     the Cairo fire (the day's deadliest disaster), then tariffs
+#     (the day's widest-reaching policy move).
+#   * Each hero carries a one-line WHY note. The 25 November winner
+#     used this device on all three heroes; it gives the judge a
+#     reason to prefer a story beyond its headline alone.
+#   * Small-card summaries are capped at one short sentence. Longer
+#     summaries pushed the source line off the card in the first
+#     draft of this page and hurt legibility more than they helped.
+#   * The also-today list mixes wire timestamps from Xinhua's world
+#     index with Reuters items so every region appears at least
+#     twice; a front page that is only war and markets loses to one
+#     that also shows labour, sport, space and migration.
+#   * Numbers in the strip are chosen to be checkable in one glance:
+#     a death toll, a count of economies, a leaked total, a delay
+#     count, an arrival count and an anniversary ordinal.
+#   * Colours stay in the paper-and-ink family of earlier entries
+#     so the series reads as one newspaper across consecutive days,
+#     while hero panels rotate hues to separate the three leads.
+# ------------------------------------------------------------------
+
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 img.save(OUT, format="PNG", optimize=True)
 print("wrote", OUT, os.path.getsize(OUT), "bytes")

@@ -1,35 +1,31 @@
 #!/usr/bin/env python3
-"""make.fun bounty entry: news-image-20261126.
+"""Entry point for the 26 November 2026 news-image bounty.
 
-"Sum up 26 November's world news in one image."
-
-The entry is a program that writes one image to /output/entry.png.
-The bounty brief explicitly allows the simplest form of this program:
-"the simplest program copies an image the repository holds".
-
-So this program copies assets/entry.png (a 1024x1024 PNG generated
-offline by generate.py in this repository from verified 26 Nov 2026
-news — see SOURCES.md) into the grader's output directory.
-
-Pure standard library only: no network, no randomness, no wall-clock
-time, no third-party packages. Two runs write byte-identical output.
-
-Run by the grader as:  python3 -P -s /bot/main.py
-Output directory: $MAKEFUN_OUTPUT_DIR (default /output).
+The grader runs this file and expects /output/entry.png to appear.
+The picture itself is drawn ahead of time by generate.py and stored
+under assets/; this runner's only job is to place a copy where the
+grader looks for it. Keeping the runner tiny and dependency-free
+means the two grading runs produce identical bytes every time.
 """
 
 import os
 import shutil
 import sys
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-SRC = os.path.join(HERE, "assets", "entry.png")
+ROOT = os.path.dirname(os.path.abspath(__file__))
+PICTURE = os.path.join(ROOT, "assets", "entry.png")
+FALLBACK_DIR = "/output"
+
+
+def destination():
+    chosen = os.environ.get("MAKEFUN_OUTPUT_DIR", "").strip()
+    return chosen if chosen else FALLBACK_DIR
 
 
 def main():
-    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
-    os.makedirs(out_dir, exist_ok=True)
-    shutil.copyfile(SRC, os.path.join(out_dir, "entry.png"))
+    target_dir = destination()
+    os.makedirs(target_dir, exist_ok=True)
+    shutil.copyfile(PICTURE, os.path.join(target_dir, "entry.png"))
     return 0
 
 
